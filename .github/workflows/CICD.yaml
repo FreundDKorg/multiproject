@@ -605,7 +605,7 @@ jobs:
           artifacts: '${{ github.workspace }}\.artifacts'
 
   UpdatePRcheck:
-    if: (always()) && (github.event_name == 'workflow_run')
+    if: (always()) && (github.event_name == 'workflow_run') && (github.event.workflow_run.conclusion == 'success')
     runs-on: [ windows-latest ]
     needs: [ Initialization, Build ]
     steps:
@@ -622,7 +622,7 @@ jobs:
             });
 
   PostProcess:
-    if: (!cancelled())
+    if: (!cancelled()) && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success')
     runs-on: [ windows-latest ]
     needs: [ Initialization, Build, Deploy, Deliver ]
     steps:
