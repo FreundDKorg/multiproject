@@ -32,7 +32,6 @@ jobs:
               "Authorization" = 'token ${{ secrets.GITHUB_TOKEN }}'
               "Accept" = "application/vnd.github.baptiste-preview+json"
           }
-          throw "err"
           $baseSHA = '${{ github.event.pull_request.base.sha }}'
           $headSHA = '${{ github.event.pull_request.head.sha }}'
           $url = "$($ENV:GITHUB_API_URL)/repos/$($ENV:GITHUB_REPOSITORY)/compare/$baseSHA...$headSHA"
